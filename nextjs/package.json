@@ -6,7 +6,9 @@
     "dev": "next dev -p 2980",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"./src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "next": "11.1.2",
@@ -17,6 +19,7 @@
     "@types/react": "17.0.31",
     "eslint": "8.1.0",
     "eslint-config-next": "11.1.2",
+    "prettier": "2.4.1",
     "typescript": "4.4.4"
   }
 }
