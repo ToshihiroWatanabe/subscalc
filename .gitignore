@@ -22,3 +22,5 @@ rails-api/tmp/pids/*
 
 # Ignore master key for decrypting credentials and more.
 rails-api/config/master.key
+
+rails-api/.env
