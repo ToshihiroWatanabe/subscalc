@@ -5,6 +5,17 @@
 
 - Ruby 3.0.2
 
+# 環境変数
+
+## Rails API用
+
+名前|説明
+---|---
+development.clients.default.database|開発用のデータベース名
+development.clients.default.hosts|開発用データベースのホスト:ポート
+test.clients.default.database|テスト用のデータベース名
+test.clients.default.hosts|テスト用データベースのホスト:ポート
+
 # コマンド
 
 ```
