@@ -33,5 +33,5 @@ rails webpacker:install
 ```
 
 ```
-bin/rails g scaffold Subscription name:string month_every:integer price:integer
+bin/rails g scaffold Subscription name:string monthEvery:integer price:integer
 ``
