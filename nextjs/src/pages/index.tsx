@@ -10,8 +10,18 @@ import {
   Td,
   Button,
   TableCaption,
+  Box,
 } from "@chakra-ui/react";
-import EditDialog from "components/EditDialog";
+import SubscriptionFormDialog from "components/SubscriptionFormDialog";
+
+const newSubscription: Subscription = {
+  _id: {
+    $oid: "",
+  },
+  name: "",
+  monthEvery: 1,
+  price: 980,
+};
 
 const Home: NextPage = () => {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>();
@@ -59,7 +69,7 @@ const Home: NextPage = () => {
                   <Td>{subscription.monthEvery}</Td>
                   <Td>{subscription.price}</Td>
                   <Td>
-                    <EditDialog
+                    <SubscriptionFormDialog
                       subscription={subscription}
                       getIndex={getIndex}
                     />
@@ -70,6 +80,11 @@ const Home: NextPage = () => {
           })}
         </Tbody>
       </Table>
+      <Box mt={3} />
+      <SubscriptionFormDialog
+        subscription={newSubscription}
+        getIndex={getIndex}
+      />
     </>
   );
 };

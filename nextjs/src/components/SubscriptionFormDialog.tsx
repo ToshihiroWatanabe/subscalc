@@ -13,11 +13,15 @@ import {
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
 import { Subscription } from "types/Subscription";
-import { EditIcon } from "@chakra-ui/icons";
+import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import SubscriptionService from "services/Subscription.service";
 
-function EditDialog(props: { subscription: Subscription; getIndex: Function }) {
+function SubscriptionFormDialog(props: {
+  subscription: Subscription;
+  getIndex: Function;
+}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const isModeCreate = props.subscription._id.$oid === "";
   const [name, setName] = useState(props.subscription.name);
   const [monthEvery, setMonthEvery] = useState(props.subscription.monthEvery);
   const [price, setPrice] = useState(props.subscription.price);
@@ -25,7 +29,9 @@ function EditDialog(props: { subscription: Subscription; getIndex: Function }) {
   const initialRef = useRef<any>();
   const finalRef = useRef<any>();
 
-  const onUpdateButtonClick = () => {
+  let isControlPressed = false;
+
+  const onProceedButtonClick = () => {
     if (!validate()) return;
     const subscription: Subscription = {
       _id: { $oid: props.subscription._id.$oid },
@@ -33,30 +39,60 @@ function EditDialog(props: { subscription: Subscription; getIndex: Function }) {
       monthEvery: monthEvery,
       price: price,
     };
-    SubscriptionService.update(subscription)
-      .then((res) => {
-        if (res.status === 200) {
-          props.getIndex();
-          onClose();
-        }
-      })
-      .catch((reason) => {
-        console.error(reason);
-      });
+    if (props.subscription._id.$oid === "") {
+      SubscriptionService.create(subscription)
+        .then((res) => {
+          if (res.status === 201) {
+            props.getIndex();
+            onClose();
+          }
+        })
+        .catch((reason) => {
+          console.error(reason);
+        });
+    } else {
+      SubscriptionService.update(subscription)
+        .then((res) => {
+          if (res.status === 200) {
+            props.getIndex();
+            onClose();
+          }
+        })
+        .catch((reason) => {
+          console.error(reason);
+        });
+    }
   };
 
   const validate = () => {
-    if (!name || !monthEvery || !price) {
-      return false;
+    return name && monthEvery && price;
+  };
+
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Control") {
+      isControlPressed = true;
     }
-    return true;
+    if (event.key === "Enter" && isControlPressed) {
+      isControlPressed = false;
+      onProceedButtonClick();
+    }
   };
 
   return (
     <>
       <Button onClick={onOpen} ref={finalRef}>
-        <EditIcon mr={1} />
-        編集
+        {isModeCreate && (
+          <>
+            <AddIcon mr={1} />
+            新しいサブスクリプションを追加
+          </>
+        )}
+        {!isModeCreate && (
+          <>
+            <EditIcon mr={1} />
+            編集
+          </>
+        )}
       </Button>
 
       <Modal
@@ -66,8 +102,12 @@ function EditDialog(props: { subscription: Subscription; getIndex: Function }) {
         onClose={onClose}
       >
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>編集</ModalHeader>
+        <ModalContent onKeyDown={onKeyDown}>
+          <ModalHeader>
+            {isModeCreate
+              ? "新しいサブスクリプションを追加"
+              : "サブスクリプションを編集"}
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
@@ -115,8 +155,8 @@ function EditDialog(props: { subscription: Subscription; getIndex: Function }) {
             <Button onClick={onClose} mr={3}>
               キャンセル
             </Button>
-            <Button colorScheme="blue" onClick={onUpdateButtonClick}>
-              更新
+            <Button colorScheme="blue" onClick={onProceedButtonClick}>
+              {isModeCreate ? "作成" : "更新"}
             </Button>
           </ModalFooter>
         </ModalContent>
@@ -125,4 +165,4 @@ function EditDialog(props: { subscription: Subscription; getIndex: Function }) {
   );
 }
 
-export default EditDialog;
+export default SubscriptionFormDialog;
