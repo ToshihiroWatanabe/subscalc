@@ -9,7 +9,7 @@ class SubscriptionService {
     return http.get<Subscription[]>("/subscriptions");
   }
   update(subscription: Subscription) {
-    return http.put("/subscriptions", subscription);
+    return http.put("/subscriptions/" + subscription._id.$oid, subscription);
   }
 }
 

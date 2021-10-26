@@ -17,20 +17,24 @@ const Home: NextPage = () => {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>();
 
   useEffect(() => {
-    SubscriptionService.index()
-      .then((res) => {
-        console.log(res.data);
-        setSubscriptions(res.data);
-      })
-      .catch((reason) => {
-        console.log(reason);
-      });
+    getIndex();
   }, []);
 
   useEffect(() => {
     if (subscriptions === undefined) return;
     console.log(subscriptions);
   }, [subscriptions]);
+
+  const getIndex = () => {
+    SubscriptionService.index()
+      .then((res) => {
+        console.log(res.data);
+        setSubscriptions(res.data);
+      })
+      .catch((reason) => {
+        console.error(reason);
+      });
+  };
 
   return (
     <>
@@ -55,7 +59,10 @@ const Home: NextPage = () => {
                   <Td>{subscription.monthEvery}</Td>
                   <Td>{subscription.price}</Td>
                   <Td>
-                    <EditDialog subscription={subscription} />
+                    <EditDialog
+                      subscription={subscription}
+                      getIndex={getIndex}
+                    />
                   </Td>
                 </Tr>
               </Fragment>
