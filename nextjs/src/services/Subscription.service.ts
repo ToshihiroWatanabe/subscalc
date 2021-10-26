@@ -8,6 +8,9 @@ class SubscriptionService {
   index() {
     return http.get<Subscription[]>("/subscriptions");
   }
+  update(subscription: Subscription) {
+    return http.put("/subscriptions", subscription);
+  }
 }
 
 export default new SubscriptionService();

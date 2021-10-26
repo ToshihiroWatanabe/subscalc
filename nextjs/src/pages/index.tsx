@@ -2,7 +2,16 @@ import type { NextPage } from "next";
 import { Fragment, useEffect, useState } from "react";
 import SubscriptionService from "services/Subscription.service";
 import { Subscription } from "types/Subscription";
-import { Table, Thead, Tbody, Tr, Td } from "@chakra-ui/react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Td,
+  Button,
+  TableCaption,
+} from "@chakra-ui/react";
+import EditDialog from "components/EditDialog";
 
 const Home: NextPage = () => {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>();
@@ -25,14 +34,15 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <h2>サブスクリプション一覧</h2>
       <Table variant="simple">
+        <TableCaption placement="top">サブスクリプション一覧</TableCaption>
         <Thead>
           <Tr>
             <Td>ID</Td>
             <Td>名前</Td>
             <Td>何ヶ月ごと</Td>
             <Td>料金</Td>
+            <Td>操作</Td>
           </Tr>
         </Thead>
         <Tbody>
@@ -44,6 +54,9 @@ const Home: NextPage = () => {
                   <Td>{subscription.name}</Td>
                   <Td>{subscription.monthEvery}</Td>
                   <Td>{subscription.price}</Td>
+                  <Td>
+                    <EditDialog subscription={subscription} />
+                  </Td>
                 </Tr>
               </Fragment>
             );
