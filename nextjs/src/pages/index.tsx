@@ -12,6 +12,13 @@ import {
   TableCaption,
   Box,
   Grid,
+  Input,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  Flex,
 } from "@chakra-ui/react";
 import SubscriptionFormDialog from "components/SubscriptionFormDialog";
 import ConfirmDialog from "components/ConfirmDialog";
@@ -27,6 +34,8 @@ const newSubscription: Subscription = {
 
 const Home: NextPage = () => {
   const [subscriptions, setSubscriptions] = useState<Subscription[]>();
+  const [monthCount, setMonthCount] = useState(1);
+  const [sumPerMonth, setSumPerMonth] = useState(0);
 
   useEffect(() => {
     getIndex();
@@ -35,6 +44,11 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (subscriptions === undefined) return;
     console.log(subscriptions);
+    let sum = 0;
+    subscriptions.forEach((subscription) => {
+      sum += subscription.price / subscription.monthEvery;
+    });
+    setSumPerMonth(Math.round(sum));
   }, [subscriptions]);
 
   const getIndex = () => {
@@ -50,6 +64,27 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Flex alignItems="center">
+        <NumberInput
+          step={1}
+          defaultValue={1}
+          min={1}
+          max={36}
+          maxW={24}
+          value={monthCount}
+          onChange={(valueAsString, valueAsNumber) => {
+            setMonthCount(valueAsNumber);
+          }}
+        >
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+        ヶ月で
+        {sumPerMonth * monthCount}円
+      </Flex>
       <Table variant="simple">
         <TableCaption placement="top">サブスクリプション一覧</TableCaption>
         <Thead>
