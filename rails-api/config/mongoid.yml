@@ -12,7 +12,6 @@ development:
       hosts:
         - <%= ENV["development.clients.default.hosts"] %>
         # - localhost:27017
-      url: <%= ENV["development.clients.default.url"] %>
       options:
         # Note that all options listed below are Ruby driver client options (the mongo gem).
         # Please refer to the driver documentation of the version of the mongo gem you are using
@@ -164,3 +163,13 @@ test:
         read:
           mode: :primary
         max_pool_size: 1
+
+<% if ENV['MONGODB_URL'] %>
+  production:
+    sessions:
+      default:
+        uri: <%= ENV['MONGODB_URL'] %>
+        options:
+          skip_version_check: true
+          safe: true
+<% end %>
