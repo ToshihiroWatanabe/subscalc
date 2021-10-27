@@ -15,6 +15,13 @@ import { Input } from "@chakra-ui/input";
 import { Subscription } from "types/Subscription";
 import { AddIcon, EditIcon } from "@chakra-ui/icons";
 import SubscriptionService from "services/Subscription.service";
+import {
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+} from "@chakra-ui/number-input";
 
 function SubscriptionFormDialog(props: {
   subscription: Subscription;
@@ -124,16 +131,20 @@ function SubscriptionFormDialog(props: {
 
             <FormControl mt={4}>
               <FormLabel>何ヶ月ごと</FormLabel>
-              <Input
-                type="number"
-                placeholder="何ヶ月ごと"
-                value={monthEvery}
-                onChange={(e) => {
-                  if (e.target.value.match(/[0-9]*/)) {
-                    setMonthEvery(parseInt(e.target.value));
-                  }
+              <NumberInput
+                step={1}
+                defaultValue={monthEvery}
+                min={1}
+                onChange={(valueAsString, valueAsNumber) => {
+                  setMonthEvery(valueAsNumber);
                 }}
-              />
+              >
+                <NumberInputField />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
             </FormControl>
 
             <FormControl mt={4}>
