@@ -164,11 +164,9 @@ test:
           mode: :primary
         max_pool_size: 1
 
-<% if ENV['MONGODB_URL'] %>
-  production:
-    clients:
-      default:
-        uri: <%= ENV['MONGODB_URL'] %>
-        options:
-          server_selection_timeout: 5
-<% end %>
+production:
+  clients:
+    default:
+      uri: <%= ENV['MONGODB_URL'] %>
+      options:
+        server_selection_timeout: 5
