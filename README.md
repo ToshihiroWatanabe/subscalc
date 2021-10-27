@@ -40,9 +40,6 @@ bin/rails g mongoid:config
 ```
 
 ```
-rails webpacker:install
-```
-
-```
+# Subscriptionモデルと関連ファイルを作成
 bin/rails g scaffold Subscription name:string monthEvery:integer price:integer
-``
+```
