@@ -11,8 +11,10 @@ import {
   Button,
   TableCaption,
   Box,
+  Grid,
 } from "@chakra-ui/react";
 import SubscriptionFormDialog from "components/SubscriptionFormDialog";
+import ConfirmDialog from "components/ConfirmDialog";
 
 const newSubscription: Subscription = {
   _id: {
@@ -69,10 +71,16 @@ const Home: NextPage = () => {
                   <Td>{subscription.monthEvery}</Td>
                   <Td>{subscription.price}</Td>
                   <Td>
-                    <SubscriptionFormDialog
-                      subscription={subscription}
-                      getIndex={getIndex}
-                    />
+                    <Grid templateColumns="repeat(5, 1fr)" gap={3}>
+                      <SubscriptionFormDialog
+                        subscription={subscription}
+                        getIndex={getIndex}
+                      />
+                      <ConfirmDialog
+                        subscription={subscription}
+                        getIndex={getIndex}
+                      />
+                    </Grid>
                   </Td>
                 </Tr>
               </Fragment>

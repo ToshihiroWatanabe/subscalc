@@ -68,7 +68,7 @@ function SubscriptionFormDialog(props: {
     return name && monthEvery && price;
   };
 
-  const onKeyDown = (event: KeyboardEvent) => {
+  const onKeyDown = (event: KeyboardEvent | any) => {
     if (event.key === "Control") {
       isControlPressed = true;
     }

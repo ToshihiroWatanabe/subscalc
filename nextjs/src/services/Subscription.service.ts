@@ -14,6 +14,9 @@ class SubscriptionService {
   update(subscription: Subscription) {
     return http.put("/subscriptions/" + subscription._id.$oid, subscription);
   }
+  delete(id: string) {
+    return http.delete("/subscriptions/" + id);
+  }
 }
 
 export default new SubscriptionService();
