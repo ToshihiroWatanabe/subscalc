@@ -2,6 +2,9 @@
 
 月額制サービスを登録し、料金の合計を計算します。
 
+![image](https://user-images.githubusercontent.com/79039863/139203521-43be6a64-6fee-4c7e-9e20-780af7a4d620.png)
+
+
 # 主な使用技術
 
 - Next.js
