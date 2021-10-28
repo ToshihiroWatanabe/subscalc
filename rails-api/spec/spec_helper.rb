@@ -94,3 +94,18 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+RSpec.configure do |config|
+  # mongodbをテスト時にtruncateするように設定
+  config.before(:suite) do
+    DatabaseCleaner[:mongoid].strategy = :truncation
+  end
+
+  config.before(:each) do
+    DatabaseCleaner[:mongoid].start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner[:mongoid].clean
+  end
+end
