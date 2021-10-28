@@ -36,10 +36,10 @@ rails new rails-api --api --skip-bundle --skip-active-record --skip-test --skip-
 
 ```
 # Mongoidの設定ファイルを作成
-bin/rails g mongoid:config
+rails g mongoid:config
 ```
 
 ```
 # Subscriptionモデルと関連ファイルを作成
-bin/rails g scaffold Subscription name:string monthEvery:integer price:integer
+rails g scaffold Subscription name:string monthEvery:integer price:integer
 ```
