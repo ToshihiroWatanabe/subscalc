@@ -19,9 +19,11 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   Flex,
+  Text,
 } from "@chakra-ui/react";
 import SubscriptionFormDialog from "components/SubscriptionFormDialog";
 import ConfirmDialog from "components/ConfirmDialog";
+import CommonMeta from "components/CommonMeta";
 
 const newSubscription: Subscription = {
   _id: {
@@ -64,6 +66,8 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <CommonMeta />
+      <Text fontSize="4xl">サブスク計算アプリ</Text>
       <Flex alignItems="center">
         <NumberInput
           step={1}

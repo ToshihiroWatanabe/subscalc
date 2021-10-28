@@ -23,6 +23,9 @@ import {
   NumberInputStepper,
 } from "@chakra-ui/number-input";
 
+/**
+ * サブスクリプションの入力フォームダイアログのコンポーネントです。
+ */
 function SubscriptionFormDialog(props: {
   subscription: Subscription;
   getIndex: Function;

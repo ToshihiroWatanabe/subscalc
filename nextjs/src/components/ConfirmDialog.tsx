@@ -14,6 +14,9 @@ import { useRef } from "react";
 import SubscriptionService from "services/Subscription.service";
 import { Subscription } from "types/Subscription";
 
+/**
+ * 確認ダイアログのコンポーネントです。
+ */
 function ConfirmDialog(props: {
   subscription: Subscription;
   getIndex: Function;
