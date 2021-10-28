@@ -14,7 +14,7 @@
 
 名前|説明
 ---|---
-NEXT_PUBLIC_RAILS_API_URL|Ruby on RailsのAPIサーバーのデプロイ先のURL
+NEXT_PUBLIC_RAILS_API_URL|(本番環境)Ruby on RailsのAPIサーバーのデプロイ先のURL
 
 ## Ruby on Rails用
 
@@ -26,6 +26,8 @@ test.clients.default.database|テスト用のデータベース名
 test.clients.default.hosts|テスト用データベースのホスト:ポート
 MONGODB_URL|(本番環境)MongoDBの接続用URL
 FRONTEND_URL|(本番環境)フロントエンドのデプロイ先のURL
+
+
 
 # Ruby on Railsアプリ制作時に使った主なコマンド
 
